@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react"
+import CitySearch from "./CitySearch"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const defaultCity = {
+	name: "Toronto",
+	latitude: 43.7417,
+	longitude: -79.3733,
+	country: "CA",
+	population: 5429524,
+	is_capital: false,
 }
 
-export default App;
+function App() {
+	const [city, setCity] = useState(defaultCity)
+	const handleSubmit = (cityObj) => {
+		setCity(cityObj)
+	}
+	return (
+		<div className="App">
+			<h1>Simple Weather App</h1>
+			<CitySearch handleSubmit={handleSubmit} />
+		</div>
+	)
+}
+
+export default App

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import CitySearch from "./CitySearch"
+import WeatherData from "./WeatherData"
 
 const defaultCity = {
 	name: "Toronto",
@@ -19,6 +20,7 @@ function App() {
 		<div className="App">
 			<h1>Simple Weather App</h1>
 			<CitySearch handleSubmit={handleSubmit} />
+			{city && <WeatherData city={city} />}
 		</div>
 	)
 }

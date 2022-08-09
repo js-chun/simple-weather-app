@@ -1,6 +1,7 @@
 import { useState } from "react"
 import CitySearch from "./CitySearch"
 import WeatherData from "./WeatherData"
+import PageContent from "./PageContent"
 
 const defaultCity = {
 	name: "Toronto",
@@ -13,15 +14,15 @@ const defaultCity = {
 
 function App() {
 	const [city, setCity] = useState(defaultCity)
+	const [units, setUnits] = useState("metric")
 	const handleSubmit = (cityObj) => {
 		setCity(cityObj)
 	}
 	return (
-		<div className="App">
-			<h1>Simple Weather App</h1>
+		<PageContent>
 			<CitySearch handleSubmit={handleSubmit} />
-			{city && <WeatherData city={city} />}
-		</div>
+			{city && <WeatherData city={city} units={units} />}
+		</PageContent>
 	)
 }
 

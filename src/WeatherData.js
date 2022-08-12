@@ -5,51 +5,22 @@ import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
 import Switch from "@mui/material/Switch"
-import { styled } from "@mui/material/styles"
+import { Root, classes } from "./WeatherDataStyles"
 
-const PREFIX = "WD"
-const classes = {
-	root: `${PREFIX}-root`,
-	loc: `${PREFIX}-loc`,
-	desc: `${PREFIX}-desc`,
-	temp: `${PREFIX}-temp`,
-	misc: `${PREFIX}-misc`,
+const tempUnits = {
+	metric: "°C",
+	imperial: "°F",
 }
 
-const Root = styled("div")(({ theme }) => ({
-	[`&.${classes.root}`]: {
-		backgroundColor: "#F5F2E7",
-	},
-	[`& .${classes.loc}`]: {
-		fontSize: "2rem",
-		marginTop: "0",
-		textTransform: "uppercase",
-		textAlign: "end",
-	},
-	[`& .${classes.desc}`]: {
-		textTransform: "lowercase",
-		fontStyle: "italic",
-		marginTop: "0",
-		marginBottom: "0.5rem",
-		fontSize: "1.2rem",
-		opacity: "0.5",
-	},
-	[`& .${classes.temp}`]: {
-		backgroundColor: "#F5F2E7",
-		width: "46%",
-		display: "inline-block",
-		margin: "0 2%",
-	},
-	[`& .${classes.misc}`]: {
-		backgroundColor: "#F5F2E7",
-		width: "96%",
-		margin: "2%",
-	},
-}))
+const windUnits = {
+	metric: "meters/sec",
+	imperial: "miles/hr",
+}
 
 export default function WeatherData(props) {
-	const { city } = props
+	const { city, units } = props
 	const [weather, setWeather] = useState("")
+
 	useEffect(() => {
 		async function getWeather() {
 			const result = await axios.get(
@@ -59,6 +30,10 @@ export default function WeatherData(props) {
 		}
 		getWeather()
 	}, [city])
+
+	const handleSwitchChange = (evt) => {
+		props.handleUnitChange(evt.target.checked)
+	}
 	return (
 		<Root className={classes.root}>
 			<Paper
@@ -78,35 +53,52 @@ export default function WeatherData(props) {
 						<section className={classes.desc}>
 							<Typography variant="h5">
 								{weather.weather[0].main} - {weather.weather[0].description}
+								<img
+									className={classes.icon}
+									src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+									alt={weather.weather[0].description}
+								/>
 							</Typography>
 						</section>
 						<Card className={classes.temp}>
 							<CardContent variant="outlined">
-								<Typography>Main Temperature: {weather.main.temp}</Typography>
-								<Typography>Feels Like: {weather.main.feels_like}</Typography>
+								<Typography>
+									Main Temp: {weather.main.temp}
+									{tempUnits[units]}
+								</Typography>
+								<Typography>
+									Feels Like: {weather.main.feels_like}
+									{tempUnits[units]}
+								</Typography>
 							</CardContent>
 						</Card>
 						<Card className={classes.temp}>
 							<CardContent variant="outlined">
 								<Typography>
-									Min. Temperature: {weather.main.temp_min}
+									Min. Temp: {weather.main.temp_min}
+									{tempUnits[units]}
 								</Typography>
 								<Typography>
-									Max. Temperature: {weather.main.temp_max}
+									Max. Temp: {weather.main.temp_max}
+									{tempUnits[units]}
 								</Typography>
 							</CardContent>
 						</Card>
 						<br></br>
 						<Card className={classes.misc}>
 							<CardContent variant="outlined">
-								<Typography>Humidity: {weather.main.humidity}</Typography>
-								<Typography>Wind Speed: {weather.wind.speed}</Typography>
-								<Typography>Wind Deg: {weather.wind.deg}</Typography>
+								<Typography>Humidity: {weather.main.humidity}%</Typography>
+								<Typography>
+									Wind Speed: {weather.wind.speed} {windUnits[units]}
+								</Typography>
+								<Typography>Wind Deg: {weather.wind.deg}&deg;</Typography>
 							</CardContent>
 						</Card>
 					</>
 				)}
-				<Switch></Switch>
+				<Typography component="span">°F</Typography>
+				<Switch checked={units === "metric"} onChange={handleSwitchChange} />
+				<Typography component="span">°C</Typography>
 			</Paper>
 		</Root>
 	)

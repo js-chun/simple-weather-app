@@ -18,10 +18,23 @@ function App() {
 	const handleSubmit = (cityObj) => {
 		setCity(cityObj)
 	}
+	const handleUnitChange = (isMetric) => {
+		if (isMetric) {
+			setUnits("metric")
+		} else {
+			setUnits("imperial")
+		}
+	}
 	return (
 		<PageContent>
-			<CitySearch handleSubmit={handleSubmit} />
-			{city && <WeatherData city={city} units={units} />}
+			<CitySearch handleSubmit={handleSubmit} units={units} />
+			{city && (
+				<WeatherData
+					city={city}
+					units={units}
+					handleUnitChange={handleUnitChange}
+				/>
+			)}
 		</PageContent>
 	)
 }

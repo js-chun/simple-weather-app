@@ -28,7 +28,9 @@ export default function WeatherData(props) {
 			)
 			setWeather(result.data)
 		}
-		getWeather()
+		if (city) {
+			getWeather()
+		}
 	}, [city, units])
 
 	const handleSwitchChange = (evt) => {

@@ -3,18 +3,16 @@ import CitySearch from "./CitySearch"
 import WeatherData from "./WeatherData"
 import PageContent from "./PageContent"
 
-const defaultCity = {
-	name: "Toronto",
-	latitude: 43.7417,
-	longitude: -79.3733,
-	country: "CA",
-	population: 5429524,
-	is_capital: false,
-}
-
 function App() {
-	const [city, setCity] = useState(defaultCity)
+	let initialCity = JSON.parse(window.localStorage.getItem("weather_city"))
+	if (Object.keys(initialCity).length === 0) {
+		initialCity = ""
+	}
+	const [city, setCity] = useState(initialCity)
 	const [units, setUnits] = useState("metric")
+	useEffect(() => {
+		window.localStorage.setItem("weather_city", JSON.stringify(city))
+	}, [city])
 	const handleSubmit = (cityObj) => {
 		setCity(cityObj)
 	}

@@ -6,33 +6,9 @@ import SearchIcon from "@mui/icons-material/Search"
 import Button from "@mui/material/Button"
 import Autocomplete from "@mui/material/Autocomplete"
 import debounce from "lodash.debounce"
-import { styled } from "@mui/material/styles"
+import { Root, classes } from "./styles/CitySearchStyles"
 
 const limit = 10
-
-const PREFIX = "Search"
-const classes = {
-	root: `${PREFIX}-root`,
-	btn: `${PREFIX}-btn`,
-}
-
-const Root = styled("div")(({ theme }) => ({
-	[`&.${classes.root}`]: {
-		backgroundColor: "#F5F2E7",
-		marginBottom: "1rem",
-	},
-	[`& .${classes.btn}`]: {
-		backgroundColor: "#2666CF",
-		height: "56px",
-		opacity: "0.7",
-		["&:hover"]: {
-			opacity: "1",
-		},
-		["& svg"]: {
-			transform: "scale(1.5)",
-		},
-	},
-}))
 
 export default function CitySearch(props) {
 	const [city, setCity] = useState("")

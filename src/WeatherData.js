@@ -5,7 +5,7 @@ import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
 import Switch from "@mui/material/Switch"
-import { Root, classes } from "./WeatherDataStyles"
+import { Root, classes, unitSx, notUnitSx } from "./styles/WeatherDataStyles"
 
 const tempUnits = {
 	metric: "°C",
@@ -29,22 +29,14 @@ export default function WeatherData(props) {
 			setWeather(result.data)
 		}
 		getWeather()
-	}, [city])
+	}, [city, units])
 
 	const handleSwitchChange = (evt) => {
 		props.handleUnitChange(evt.target.checked)
 	}
 	return (
 		<Root className={classes.root}>
-			<Paper
-				elevation={3}
-				sx={{
-					backgroundColor: "#395B64",
-					color: "#F5F2E7",
-					margin: "1rem",
-					padding: "1rem",
-					width: "500px",
-				}}>
+			<Paper elevation={3} className={classes.cont}>
 				<Typography className={classes.loc}>
 					{city.name}, {city.country}
 				</Typography>
@@ -96,9 +88,17 @@ export default function WeatherData(props) {
 						</Card>
 					</>
 				)}
-				<Typography component="span">°F</Typography>
+				<Typography
+					component="span"
+					sx={units === "imperial" ? unitSx : notUnitSx}>
+					°F
+				</Typography>
 				<Switch checked={units === "metric"} onChange={handleSwitchChange} />
-				<Typography component="span">°C</Typography>
+				<Typography
+					component="span"
+					sx={units === "metric" ? unitSx : notUnitSx}>
+					°C
+				</Typography>
 			</Paper>
 		</Root>
 	)

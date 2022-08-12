@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles"
 const PREFIX = "WD"
 const classes = {
 	root: `${PREFIX}-root`,
+	cont: `${PREFIX}-cont`,
 	loc: `${PREFIX}-loc`,
 	desc: `${PREFIX}-desc`,
 	temp: `${PREFIX}-temp`,
@@ -13,6 +14,13 @@ const classes = {
 const Root = styled("div")(({ theme }) => ({
 	[`&.${classes.root}`]: {
 		backgroundColor: "#F5F2E7",
+	},
+	[`& .${classes.cont}`]: {
+		backgroundColor: "#395B64",
+		color: "#F5F2E7",
+		margin: "1rem",
+		padding: "1rem",
+		width: "500px",
 	},
 	[`& .${classes.loc}`]: {
 		fontSize: "2rem",
@@ -46,4 +54,13 @@ const Root = styled("div")(({ theme }) => ({
 	},
 }))
 
-export { Root, classes }
+const unitSx = {
+	fontWeight: "bold",
+	opacity: "1",
+}
+
+const notUnitSx = {
+	opacity: "0.5",
+}
+
+export { Root, classes, unitSx, notUnitSx }

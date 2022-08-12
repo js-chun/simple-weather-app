@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import CitySearch from "./CitySearch"
 import WeatherData from "./WeatherData"
 import PageContent from "./PageContent"

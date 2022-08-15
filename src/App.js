@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import CitySearch from "./CitySearch"
 import WeatherData from "./WeatherData"
 import PageContent from "./PageContent"
@@ -10,11 +10,9 @@ function App() {
 	}
 	const [city, setCity] = useState(initialCity)
 	const [units, setUnits] = useState("metric")
-	useEffect(() => {
-		window.localStorage.setItem("weather_city", JSON.stringify(city))
-	}, [city])
 	const handleSubmit = (cityObj) => {
 		setCity(cityObj)
+		window.localStorage.setItem("weather_city", JSON.stringify(city))
 	}
 	const handleUnitChange = (isMetric) => {
 		if (isMetric) {

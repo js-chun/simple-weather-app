@@ -1,3 +1,7 @@
+# simple-weather-app
+
+Simple Weather App created using React, MUI to search for a city's weather. It has a Search Bar that sends GET requests to City API from API Ninjas to suggest possible city options in the drop-down, then takes the lat/lon data from selected city to make a GET request to Weather API (OpenWeather). Takes last city searched and stores into LocalStorage for to get data for the city automatically on next visit.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

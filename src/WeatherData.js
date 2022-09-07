@@ -36,6 +36,7 @@ export default function WeatherData(props) {
 	const handleSwitchChange = (evt) => {
 		props.handleUnitChange(evt.target.checked)
 	}
+
 	return (
 		<Root className={classes.root} phoneView={phoneView}>
 			<Paper elevation={3} className={classes.cont}>

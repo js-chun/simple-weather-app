@@ -11,16 +11,17 @@ const classes = {
 	icon: `${PREFIX}-icon`,
 }
 
-const Root = styled("div")(({ theme }) => ({
+const Root = styled("div")(({ theme, phoneView }) => ({
 	[`&.${classes.root}`]: {
 		backgroundColor: "#F5F2E7",
+		width: phoneView ? "100%" : "35rem",
 	},
 	[`& .${classes.cont}`]: {
 		backgroundColor: "#395B64",
 		color: "#F5F2E7",
-		margin: "1rem",
-		padding: "1rem",
-		width: "500px",
+		margin: "5%",
+		padding: "3%",
+		width: "85%",
 	},
 	[`& .${classes.loc}`]: {
 		fontSize: "2rem",
@@ -38,9 +39,9 @@ const Root = styled("div")(({ theme }) => ({
 	},
 	[`& .${classes.temp}`]: {
 		backgroundColor: "#F5F2E7",
-		width: "46%",
-		display: "inline-block",
-		margin: "0 2%",
+		width: phoneView ? "96%" : "46%",
+		display: phoneView ? "block" : "inline-block",
+		margin: phoneView ? "2%" : "0 2%",
 	},
 	[`& .${classes.misc}`]: {
 		backgroundColor: "#F5F2E7",
@@ -48,8 +49,8 @@ const Root = styled("div")(({ theme }) => ({
 		margin: "2%",
 	},
 	[`& .${classes.icon}`]: {
-		width: "36px",
-		height: "36px",
+		width: "2.25rem",
+		height: "2.25rem",
 		verticalAlign: "bottom",
 	},
 }))

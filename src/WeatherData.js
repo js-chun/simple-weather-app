@@ -18,7 +18,7 @@ const windUnits = {
 }
 
 export default function WeatherData(props) {
-	const { city, units } = props
+	const { city, units, phoneView } = props
 	const [weather, setWeather] = useState("")
 
 	useEffect(() => {
@@ -37,7 +37,7 @@ export default function WeatherData(props) {
 		props.handleUnitChange(evt.target.checked)
 	}
 	return (
-		<Root className={classes.root}>
+		<Root className={classes.root} phoneView={phoneView}>
 			<Paper elevation={3} className={classes.cont}>
 				<Typography className={classes.loc}>
 					{city.name}, {city.country}
@@ -78,7 +78,7 @@ export default function WeatherData(props) {
 								</Typography>
 							</CardContent>
 						</Card>
-						<br></br>
+						{!phoneView && <br />}
 						<Card className={classes.misc}>
 							<CardContent variant="outlined">
 								<Typography>Humidity: {weather.main.humidity}%</Typography>

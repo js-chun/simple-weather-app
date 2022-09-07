@@ -11,14 +11,17 @@ import { Root, classes } from "./styles/CitySearchStyles"
 const limit = 10
 
 export default function CitySearch(props) {
+	const { phoneView } = props
 	const [city, setCity] = useState("")
 	const [inputCity, setInputCity] = useState("")
 	const [searchCities, setSearchCities] = useState([])
 
 	const handleChange = (evt, newValue) => {
 		setCity(newValue)
-		setInputCity(`${newValue.name}, ${newValue.country}`)
-		setSearchCities([])
+		if (newValue) {
+			setInputCity(`${newValue.name}, ${newValue.country}`)
+			setSearchCities([])
+		}
 	}
 	const findCities = async (value) => {
 		const sCities = await axios.get(
@@ -46,30 +49,26 @@ export default function CitySearch(props) {
 		props.handleSubmit(city)
 	}
 	return (
-		<Root className={classes.root}>
-			<Paper
-				elevation={3}
-				sx={{ margin: "1rem", padding: "1rem", width: "500px" }}>
+		<Root className={classes.root} phoneView={phoneView}>
+			<Paper elevation={3} className={classes.bg}>
 				<Autocomplete
 					disablePortal
-					id="combo-box-demo"
 					options={searchCities}
-					sx={{ width: 500 }}
 					getOptionLabel={(option) => `${option.name}, ${option.country}`}
 					value={city}
 					onChange={handleChange}
 					inputValue={inputCity}
+					disableClearable
 					renderInput={(params) => (
 						<>
 							<TextField
 								{...params}
-								sx={{ width: "400px", marginRight: "20px" }}
+								className={classes.searchText}
 								label="City..."
 								onChange={handleInputChange}
 							/>
 							<Button
 								className={classes.btn}
-								sx={{ marginY: "auto" }}
 								variant="contained"
 								onClick={handleSubmit}>
 								<SearchIcon />

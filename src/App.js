@@ -2,8 +2,10 @@ import { useState } from "react"
 import CitySearch from "./CitySearch"
 import WeatherData from "./WeatherData"
 import PageContent from "./PageContent"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 function App() {
+	const phoneView = useMediaQuery("(max-width: 600px)")
 	let initialCity = JSON.parse(window.localStorage.getItem("weather_city"))
 	if (Object.keys(initialCity).length === 0) {
 		initialCity = ""
@@ -22,13 +24,18 @@ function App() {
 		}
 	}
 	return (
-		<PageContent>
-			<CitySearch handleSubmit={handleSubmit} units={units} />
+		<PageContent phoneView={phoneView}>
+			<CitySearch
+				handleSubmit={handleSubmit}
+				units={units}
+				phoneView={phoneView}
+			/>
 			{city && (
 				<WeatherData
 					city={city}
 					units={units}
 					handleUnitChange={handleUnitChange}
+					phoneView={phoneView}
 				/>
 			)}
 		</PageContent>
